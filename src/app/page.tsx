@@ -1,64 +1,111 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
+export default function GatePage() {
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleUnlock = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("/api/unlock-gate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+      });
+
+      if (res.ok) {
+        router.push("/story");
+      } else {
+        setError("Invalid code, try again.");
+      }
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden selection:bg-primary-container selection:text-on-primary-container">
+      {/* Decorative Background Elements */}
+      <div
+        className="absolute top-0 left-0 w-full h-full pointer-events-none z-0"
+        style={{
+          background: `radial-gradient(at 80% 0%, rgba(103, 75, 181, 0.05) 0px, transparent 50%), radial-gradient(at 0% 100%, rgba(103, 75, 181, 0.05) 0px, transparent 50%)`,
+        }}
+      />
+      <div
+        className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 animate-[drift_40s_linear_infinite]"
+        style={{
+          backgroundImage: `
+            radial-gradient(1px 1px at 10% 20%, rgba(255, 255, 255, 0.2) 100%, transparent),
+            radial-gradient(1px 1px at 30% 80%, rgba(255, 255, 255, 0.1) 100%, transparent),
+            radial-gradient(2px 2px at 80% 50%, rgba(167, 139, 250, 0.15) 100%, transparent),
+            radial-gradient(1px 1px at 60% 10%, rgba(255, 255, 255, 0.15) 100%, transparent),
+            radial-gradient(1.5px 1.5px at 90% 90%, rgba(167, 139, 250, 0.1) 100%, transparent)`,
+          backgroundSize: "200px 200px",
+        }}
+      />
+      <div className="absolute w-[400px] h-[400px] rounded-full blur-[100px] pointer-events-none z-0 opacity-10 -top-[150px] -left-[150px] bg-primary" />
+      <div className="absolute w-[400px] h-[400px] rounded-full blur-[100px] pointer-events-none z-0 opacity-10 -bottom-[150px] -right-[150px] bg-inverse-primary" />
+
+      {/* Ambient Lighting Element */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] pointer-events-none z-0"
+        style={{
+          background: `radial-gradient(circle, rgba(167, 139, 250, 0.05) 0%, rgba(19, 19, 23, 0) 70%)`,
+        }}
+      />
+
+      {/* Main Content Canvas */}
+      <main className="relative z-10 w-full max-w-lg px-6 flex flex-col items-center">
+        {/* Header */}
+        <h1 className="font-pinyon text-6xl md:text-7xl text-primary-container [text-shadow:0_0_8px_#A78BFA,0_0_20px_#A78BFA] leading-relaxed mb-4 text-center select-none">
+          Only for...
+        </h1>
+        {/* Hint Text */}
+        <p className="font-body text-on-surface-variant text-sm tracking-wide text-center mb-16 opacity-80">
+          Clue: I usually called you
+        </p>
+
+        {/* Input Form Area */}
+        <form
+          onSubmit={handleUnlock}
+          className="w-full flex flex-col items-center group"
+        >
+          <div className="relative w-full max-w-sm">
+            <input
+              autoComplete="off"
+              className="w-full bg-transparent border-0 border-b-2 border-primary-container/50 text-center text-2xl text-on-surface py-4 px-2 focus:ring-0 focus:border-primary-container focus:outline-none transition-colors duration-300 placeholder:text-surface-variant font-body placeholder:font-light"
+              placeholder="Enter the code..."
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            {/* Subtle glow line that appears on focus */}
+            <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-primary-container shadow-[0_0_10px_#A78BFA] transition-all duration-500 ease-out group-focus-within:w-full"></div>
+          </div>
+          {error && <p className="mt-4 text-error text-sm">{error}</p>}
+
+          {/* Glowing Action Button */}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="mt-16 px-12 py-4 rounded-full bg-gradient-to-br from-primary to-primary-container text-on-primary font-label font-bold tracking-widest uppercase shadow-[0_4px_20px_rgba(167,139,250,0.15)] hover:shadow-[0_10px_40px_rgba(167,139,250,0.4)] transition-all duration-500 transform hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-primary-container focus:ring-offset-2 focus:ring-offset-background backdrop-blur-xl disabled:opacity-50"
           >
-            Documentation
-          </a>
-        </div>
+            {isLoading ? "Unlocking..." : "Unlock"}
+          </button>
+        </form>
       </main>
     </div>
   );
