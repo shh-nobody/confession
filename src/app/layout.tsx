@@ -19,8 +19,8 @@ const pinyonScript = Pinyon_Script({
 });
 
 export const metadata: Metadata = {
-  title: "The Veiled Sanctuary",
-  description: "A confession portal",
+  title: "Confession for Tia",
+  description: "anuu itulah pokoknya",
 };
 
 export default function RootLayout({
@@ -39,7 +39,9 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col font-body bg-background text-on-surface">{children}</body>
+      <body className="min-h-full flex flex-col font-body bg-background text-on-surface">
+        {children}
+      </body>
     </html>
   );
 }

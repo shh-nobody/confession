@@ -21,7 +21,7 @@ export default function StoryPage() {
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           alt=""
-          className="absolute top-[0%] right-[-30%] md:top-[-3%] md:right-[8%] w-72 md:w-96 h-auto blur-[2px] rotate-[-90deg] rounded-3xl object-cover opacity-40 animate-[float_12s_infinite_ease-in-out]"
+          className="absolute top-[0%] right-[-30%] md:top-[0%] md:right-[8%] w-72 md:w-96 h-auto blur-[2px] rotate-[-90deg] rounded-3xl object-cover opacity-40 animate-[float_12s_infinite_ease-in-out]"
           src="/decos/mem2.webp"
           style={{ animationDelay: "-5s" }}
         />
