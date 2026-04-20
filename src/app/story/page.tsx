@@ -9,6 +9,37 @@ export default function StoryPage() {
       <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
         {/* Gradient Mesh */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-surface-variant/20 via-background to-background opacity-60"></div>
+
+        {/* Floating Memory Images */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          alt=""
+          className="absolute top-[45%] left-[-15%] md:left-[2%] w-64 md:w-80 h-auto blur-[3px] rotate-[-12deg] rounded-3xl object-cover opacity-40 animate-[float_12s_infinite_ease-in-out]"
+          src="/decos/mem1.webp"
+          style={{ animationDelay: "-2s" }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          alt=""
+          className="absolute top-[0%] right-[-30%] md:top-[-3%] md:right-[8%] w-72 md:w-96 h-auto blur-[2px] rotate-[-90deg] rounded-3xl object-cover opacity-40 animate-[float_12s_infinite_ease-in-out]"
+          src="/decos/mem2.webp"
+          style={{ animationDelay: "-5s" }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          alt=""
+          className="absolute bottom-[20%] left-[-15%] md:left-[5%] w-56 md:w-72 h-auto blur-[2px] rotate-[-6deg] rounded-3xl object-cover opacity-40 animate-[float_12s_infinite_ease-in-out]"
+          src="/decos/mem3.webp"
+          style={{ animationDelay: "-8s" }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          alt=""
+          className="absolute bottom-[0%] right-[-35%] md:right-[8%] w-80 md:w-[26rem] h-auto blur-[3px] rotate-[14deg] rounded-3xl object-cover opacity-40 animate-[float_12s_infinite_ease-in-out]"
+          src="/decos/mem4.webp"
+          style={{ animationDelay: "-1s" }}
+        />
+
         {/* Glow Orbs */}
         <div className="absolute top-[-15%] left-[-10%] w-[50vw] h-[50vw] bg-primary-container/20 rounded-full blur-[100px] animate-[pulse-slow_10s_infinite_ease-in-out]"></div>
         <div
